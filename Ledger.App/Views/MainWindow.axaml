@@ -1,0 +1,202 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Ledger.App.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" Width="1280" d:DesignHeight="450"
+        x:Class="Ledger.App.Views.MainWindow"
+        Icon="/Assets/icon.ico"
+        Title="Ledger.App">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <SplitView IsPaneOpen="{Binding IsPaneOpen}"
+               OpenPaneLength="200"
+               DisplayMode="CompactInline"
+               CompactPaneLength="50"
+               Name="MenuSideBar">
+        <SplitView.Pane>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="60"/>
+                </Grid.RowDefinitions>
+                
+                <Button Grid.Column="0"
+                        Grid.Row="0"
+                        Padding="5"
+                        Height="40"
+                        Width="40"
+                        Margin="5"
+                        IsVisible="{Binding ElementName=MenuSideBar, Path=!IsPaneOpen}"
+                        Command="{Binding TogglePaneCmd}">
+                    <Button.Styles>
+                        <Style Selector="Button">
+                            <Setter Property="Background" Value="Transparent"/>
+                        </Style>
+                        <Style Selector="Button:pointerover /template/ ContentPresenter">
+                            <Setter Property="Background" Value="Transparent"></Setter>
+                        </Style>
+                    </Button.Styles>
+                    <PathIcon Data="{StaticResource Menu}"
+                              VerticalAlignment="Center">
+                        <PathIcon.Styles>
+                            <Style Selector="PathIcon:pointerover">
+                                <Setter Property="Foreground" Value="Red" />
+                            </Style>
+                        </PathIcon.Styles>
+                    </PathIcon>
+                </Button>
+                
+                <TextBlock Grid.Column="1"
+                           Grid.Row="0"
+                           Text="MyLedger"
+                           FontSize="16"
+                           FontStyle="Italic"
+                           FontWeight="SemiBold"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"/>
+                
+                <Button Grid.Column="2"
+                        Grid.Row="0"
+                        Padding="5"
+                        Height="40"
+                        Width="40"
+                        Margin="5"
+                        IsVisible="{Binding ElementName=MenuSideBar, Path=IsPaneOpen}"
+                        Command="{Binding TogglePaneCmd}">
+                    <Button.Styles>
+                        <Style Selector="Button">
+                            <Setter Property="Background" Value="Transparent"/>
+                        </Style>
+                        <Style Selector="Button:pointerover /template/ ContentPresenter">
+                            <Setter Property="Background" Value="Transparent"></Setter>
+                        </Style>
+                    </Button.Styles>
+                    <PathIcon Data="{StaticResource Close}"
+                              VerticalAlignment="Center">
+                        <PathIcon.Styles>
+                            <Style Selector="PathIcon">
+                                <Setter Property="Foreground" Value="#FFAFAFAF" />
+                            </Style>
+                            <Style Selector="PathIcon:pointerover">
+                                <Setter Property="Foreground" Value="Red" />
+                            </Style>
+                        </PathIcon.Styles>
+                    </PathIcon>
+                </Button>
+                
+                <ListBox Grid.Column="0"
+                         Grid.ColumnSpan="3"
+                         Grid.Row="1"
+                         SelectedIndex="{Binding MenuSelectedIndex}"
+                         Margin="0 50 0 0">
+                    <ListBoxItem>
+                        <ListBoxItem.Content>
+                            <StackPanel Orientation="Horizontal"
+                                        VerticalAlignment="Center">
+                                <PathIcon Data="{StaticResource Home}"
+                                          VerticalAlignment="Center"
+                                          Margin="4 0 20 0"
+                                          Foreground="Teal"/>
+                                <TextBlock Text="Home"
+                                           FontWeight="Medium"
+                                           FontSize="16"
+                                           TextAlignment="Left"
+                                           Padding="0 0.5 0 0"
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </ListBoxItem.Content>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <ListBoxItem.Content>
+                            <StackPanel Orientation="Horizontal"
+                                        VerticalAlignment="Center">
+                                <PathIcon Data="{StaticResource Planned}"
+                                          VerticalAlignment="Center"
+                                          Margin="4 0 20 0"
+                                          Foreground="Orange"/>
+                                <TextBlock Text="Planned"
+                                           FontWeight="Medium"
+                                           FontSize="16"
+                                           TextAlignment="Left"
+                                           Padding="0 0.5 0 0"
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </ListBoxItem.Content>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <ListBoxItem.Content>
+                            <StackPanel Orientation="Horizontal"
+                                        VerticalAlignment="Center">
+                                <PathIcon Data="{StaticResource Unplanned}"
+                                          VerticalAlignment="Center"
+                                          Margin="4 0 20 0"
+                                          Foreground="IndianRed"/>
+                                <TextBlock Text="Unplanned"
+                                           FontWeight="Medium"
+                                           FontSize="16"
+                                           TextAlignment="Left"
+                                           Padding="0 0.5 0 0"
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </ListBoxItem.Content>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <ListBoxItem.Content>
+                            <StackPanel Orientation="Horizontal"
+                                        VerticalAlignment="Center">
+                                <PathIcon Data="{StaticResource Today}"
+                                          VerticalAlignment="Center"
+                                          Margin="4 0 20 0"
+                                          Foreground="Green"/>
+                                <TextBlock Text="Today"
+                                           FontWeight="Medium"
+                                           FontSize="16"
+                                           TextAlignment="Left"
+                                           Padding="0 0.5 0 0"
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </ListBoxItem.Content>
+                    </ListBoxItem>
+                </ListBox>
+                
+                <ListBox Grid.Column="0"
+                         Grid.ColumnSpan="3"
+                         SelectedIndex="{Binding SettingsSelectedIndex}"
+                         Grid.Row="2">
+                    <ListBoxItem>
+                        <ListBoxItem.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <PathIcon Data="{StaticResource Settings}"
+                                          VerticalAlignment="Center"
+                                          Margin="4 0 20 0"
+                                          Foreground="#1e1e1e"/>
+                                <TextBlock Text="Settings"
+                                           FontWeight="Medium"
+                                           FontSize="16"
+                                           TextAlignment="Left"
+                                           Padding="0 0.5 0 0"
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </ListBoxItem.Content>
+                    </ListBoxItem>
+                </ListBox>
+                
+            </Grid>
+        </SplitView.Pane>
+        <SplitView.Content>
+            <ContentControl Content="{Binding CurrentViewModel}"/>
+        </SplitView.Content>
+    </SplitView>
+    
+
+</Window>

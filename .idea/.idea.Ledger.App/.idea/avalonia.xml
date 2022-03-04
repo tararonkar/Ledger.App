@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AvaloniaProject">
+    <option name="projectPerEditor">
+      <map>
+        <entry key="Ledger.App/App.axaml" value="Ledger.App/Ledger.App.csproj" />
+        <entry key="Ledger.App/Assets/icons.axaml" value="Ledger.App/Ledger.App.csproj" />
+        <entry key="Ledger.App/Views/Home.axaml" value="Ledger.App/Ledger.App.csproj" />
+        <entry key="Ledger.App/Views/HomeView.axaml" value="Ledger.App/Ledger.App.csproj" />
+        <entry key="Ledger.App/Views/MainWindow.axaml" value="Ledger.App/Ledger.App.csproj" />
+        <entry key="Ledger.App/Views/PlannedView.axaml" value="Ledger.App/Ledger.App.csproj" />
+        <entry key="Ledger.App/Views/SettingsView.axaml" value="Ledger.App/Ledger.App.csproj" />
+        <entry key="Ledger.App/Views/TodayView.axaml" value="Ledger.App/Ledger.App.csproj" />
+        <entry key="Ledger.App/Views/UnplannedView.axaml" value="Ledger.App/Ledger.App.csproj" />
+      </map>
+    </option>
+  </component>
+</project>

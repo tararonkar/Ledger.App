@@ -1,0 +1,337 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:model="clr-namespace:Ledger.App.Models"
+             xmlns:vm="clr-namespace:Ledger.App.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="1024" d:DesignHeight="450"
+             x:Class="Ledger.App.Views.HomeView">
+    <UserControl.Resources>
+        <vm:HomeViewModel x:Key="HomeVm"/>
+    </UserControl.Resources>
+    <SplitView IsPaneOpen="{Binding IsPaneOpen}"
+               DataContext="{ StaticResource HomeVm}"
+               DisplayMode="Inline"
+               OpenPaneLength="550"
+               PanePlacement="Right">
+        <SplitView.Pane>
+            <Grid VerticalAlignment="Stretch">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="100"/>
+                </Grid.RowDefinitions>
+                <Button Grid.Row="0" 
+                        Padding="5"
+                        Height="40"
+                        Width="40"
+                        Margin="5"
+                        Command="{Binding CloseCmd}">
+                    <Button.Styles>
+                        <Style Selector="Button">
+                            <Setter Property="Background" Value="Transparent"/>
+                        </Style>
+                        <Style Selector="Button:pointerover /template/ ContentPresenter">
+                            <Setter Property="Background" Value="Transparent"></Setter>
+                        </Style>
+                    </Button.Styles>
+                    <PathIcon Data="{StaticResource Close-alt}"
+                              VerticalAlignment="Center">
+                        <PathIcon.Styles>
+                            <Style Selector="PathIcon">
+                                <Setter Property="Foreground" Value="#FFAFAFAF" />
+                            </Style>
+                            <Style Selector="PathIcon:pointerover">
+                                <Setter Property="Foreground" Value="Red" />
+                            </Style>
+                        </PathIcon.Styles>
+                    </PathIcon>
+                </Button>
+                
+                <ScrollViewer HorizontalAlignment="Stretch"
+                              Grid.Row="1"
+                              VerticalAlignment="Stretch"
+                              VerticalScrollBarVisibility="Auto">
+                    <Grid DataContext="{Binding SelectedLedger}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <TextBox Grid.Column="0"
+                                 Grid.ColumnSpan="2"
+                                 Grid.Row="0"
+                                 Watermark="Task Name"
+                                 IsEnabled="{Binding Path=IsEditable, Source={StaticResource HomeVm}}"
+                                 Text="{Binding TaskName}"
+                                 FontSize="18"
+                                 FontWeight="Bold"
+                                 Margin="20 10"/>
+                        <TextBox Grid.Column="0"
+                                 Grid.ColumnSpan="2"
+                                 Grid.Row="1"
+                                 Watermark="Task Description"
+                                 IsEnabled="{Binding Path=IsEditable, Source={StaticResource HomeVm}}"
+                                 AcceptsReturn="True"
+                                 AcceptsTab="True"
+                                 Height="80"
+                                 Text="{Binding TaskDescription}"
+                                 FontSize="14"
+                                 FontWeight="Regular"
+                                 Margin="20 0"/>
+                        <ComboBox Grid.Column="0"
+                                  Grid.Row="2"
+                                  Margin="20 10"
+                                  Items="{Binding Path=Database.MyProjects, Source={ StaticResource HomeVm }}"
+                                  SelectedIndex="{Binding ProjectId}"
+                                  HorizontalAlignment="Stretch"
+                                  IsEnabled="{Binding Path=IsEditable, Source={StaticResource HomeVm}}"
+                                  PlaceholderText="Project">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding ProjectName}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <ComboBox Grid.Column="1"
+                                  Grid.Row="2"
+                                  Margin="0 10 20 0 "
+                                  Items="{Binding Path=Database.MyTags, Source={ StaticResource HomeVm }}"
+                                  SelectedIndex="{Binding TagId}"
+                                  HorizontalAlignment="Stretch"
+                                  IsEnabled="{Binding Path=IsEditable, Source={StaticResource HomeVm}}"
+                                  PlaceholderText="Tag">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Tag}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <DatePicker Grid.Column="0"
+                                    Grid.ColumnSpan="2"
+                                    Grid.Row="3"
+                                    Margin="20 5"
+                                    Header="Start Date"
+                                    IsEnabled="{Binding Path=IsEditable, Source={StaticResource HomeVm}}"
+                                    SelectedDate="{Binding StartDate}"/>
+                        <TimePicker Grid.Column="0"
+                                    Grid.ColumnSpan="2"
+                                    Grid.Row="4"
+                                    Margin="20 5"
+                                    Header="Start Time"
+                                    IsEnabled="{Binding Path=IsEditable, Source={StaticResource HomeVm}}"
+                                    SelectedTime="{Binding StartTime}"/>
+                        <DatePicker Grid.Column="0"
+                                    Grid.ColumnSpan="2"
+                                    Grid.Row="5"
+                                    Margin="20 5"
+                                    Header="End Date"
+                                    IsEnabled="{Binding Path=IsEditable, Source={StaticResource HomeVm}}"
+                                    SelectedDate="{Binding EndDate}"/>
+                        <TimePicker Grid.Column="0"
+                                    Grid.ColumnSpan="2"
+                                    Grid.Row="6"
+                                    Margin="20 5"
+                                    Header="End Time"
+                                    IsEnabled="{Binding Path=IsEditable, Source={StaticResource HomeVm}}"
+                                    SelectedTime="{Binding EndTime}"/>
+                    </Grid>
+                </ScrollViewer>
+                
+                <StackPanel Orientation="Horizontal"
+                            Grid.Row="2"
+                            Margin="20 0"
+                            HorizontalAlignment="Right">
+                    <Button Width="40"
+                            Height="40"
+                            Margin="5 0"
+                            VerticalAlignment="Center"
+                            IsVisible="{Binding EditBtnVis}"
+                            Command="{Binding EditSelectedLedgerCmd}"
+                            Name="EditBtn">
+                        <Button.Content>
+                            <PathIcon Data="{StaticResource Edit}"
+                                      Name="EditIcon"/>
+                        </Button.Content>
+                        <Button.Styles>
+                            <Style Selector="Button">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="BorderBrush" Value="orange"/>
+                            </Style>
+                            <Style Selector="Button > PathIcon">
+                                <Setter Property="Foreground" Value="orange"/>
+                            </Style>
+                            <Style Selector="Button:pointerover > PathIcon">
+                                <Setter Property="Foreground" Value="white"/>
+                            </Style>
+                            <Style Selector="Button:pointerover /template/ ContentPresenter">
+                                <Setter Property="Background" Value="darkorange"/>
+                            </Style>
+                        </Button.Styles>
+                    </Button>
+                    <Button Width="40"
+                            Height="40"
+                            Margin="5 0"
+                            VerticalAlignment="Center"
+                            IsVisible="{ Binding ElementName=EditBtn, Path=!IsVisible}"
+                            Command="{Binding SaveSelectedLedgerCmd}"
+                            Name="SaveBtn">
+                        <Button.Content>
+                            <PathIcon Data="{StaticResource Save}"/>
+                        </Button.Content>
+                        <Button.Styles>
+                            <Style Selector="Button">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="BorderBrush" Value="green"/>
+                            </Style>
+                            <Style Selector="Button > PathIcon">
+                                <Setter Property="Foreground" Value="green"/>
+                            </Style>
+                            <Style Selector="Button:pointerover > PathIcon">
+                                <Setter Property="Foreground" Value="white"/>
+                            </Style>
+                            <Style Selector="Button:pointerover /template/ ContentPresenter">
+                                <Setter Property="Background" Value="darkgreen"/>
+                            </Style>
+                        </Button.Styles>
+                    </Button>
+                    <Button Width="40"
+                            Height="40"
+                            Margin="5 0"
+                            VerticalAlignment="Center"
+                            Command="{Binding DeleteSelectedLedgerCmd}"
+                            Name="DeleteBtn">
+                        <Button.Content>
+                            <PathIcon Data="{StaticResource Delete}"/>
+                        </Button.Content>
+                        <Button.Styles>
+                            <Style Selector="Button">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="BorderBrush" Value="red"/>
+                            </Style>
+                            <Style Selector="Button > PathIcon">
+                                <Setter Property="Foreground" Value="red"/>
+                            </Style>
+                            <Style Selector="Button:pointerover > PathIcon">
+                                <Setter Property="Foreground" Value="white"/>
+                            </Style>
+                            <Style Selector="Button:pointerover /template/ ContentPresenter">
+                                <Setter Property="Background" Value="darkred"/>
+                            </Style>
+                        </Button.Styles>
+                    </Button>
+                </StackPanel>
+                
+            </Grid>
+        </SplitView.Pane>
+        <SplitView.Content>
+            <Grid HorizontalAlignment="Center"
+                  MinWidth="500">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="100"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0"
+                           Text="Home"
+                           FontSize="24"
+                           FontWeight="SemiBold"
+                           Margin="0 20 20 0"/>
+                <DataGrid Width="600"
+                          Grid.Row="1"
+                          CanUserReorderColumns="False"
+                          CanUserResizeColumns="False"
+                          CanUserSortColumns="False"
+                          AutoGenerateColumns="False"
+                          SelectionMode="Single"
+                          HeadersVisibility="None"
+                          GridLinesVisibility="None"
+                          SelectedItem="{Binding SelectedLedger}"
+                          SelectedIndex="{Binding DataGridSelectedIndex, Mode=TwoWay}"
+                          Items="{Binding Database.MyLedgers}">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate DataType="{ x:Type model:LedgerModel }">
+                                    <Border BorderBrush="green"
+                                            BorderThickness="2"
+                                            CornerRadius="5"
+                                            Height="40">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding TaskName}"
+                                                       VerticalAlignment="Center"
+                                                       Padding="10 0"/>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                    <DataGrid.Styles>
+                        <Style Selector="DataGridCell:selected">
+                            <Setter Property="Background" Value="#FFA0FFA0"/>
+                        </Style>
+                        <Style Selector="DataGridRow">
+                            <Setter Property="Margin" Value="0 5"/>
+                        </Style>
+                    </DataGrid.Styles>
+                </DataGrid>
+                
+                <StackPanel Grid.Row="2" 
+                            Width="600"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Center">
+                    <TextBox Text="{Binding TaskName}"
+                             Width="550"
+                             Height="50"
+                             Watermark="Task Name"
+                             Padding="10 15 5 0"
+                             CornerRadius="5 0 0 5"
+                             VerticalAlignment="Center">
+                        <TextBox.Styles>
+                            <Style Selector="TextBox">
+                                <Setter Property="BorderBrush" Value="green"/>
+                                <Setter Property="BorderThickness" Value="1 1 0 1"/>
+                                <Setter Property="FocusAdorner" Value="{x:Null}"/>
+                            </Style>
+                        </TextBox.Styles>
+                    </TextBox>
+                    <Button Height="50"
+                            Width="50"
+                            VerticalAlignment="Center"
+                            Command="{Binding AddNewLedgerCmd}">
+                        <Button.Content>
+                            <PathIcon Data="{ StaticResource Add}"
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Center"
+                                      Foreground="WhiteSmoke"/>
+                        </Button.Content>
+                        <Button.Styles>
+                            <Style Selector="Button">
+                                <Setter Property="Background" Value="green"/>
+                                <Setter Property="BorderBrush" Value="green"/>
+                                <Setter Property="BorderThickness" Value="0 1 1 1"/>
+                                <Setter Property="CornerRadius" Value="0 5 5 0"/>
+                            </Style>
+                            <Style Selector="Button:pointerover /template/ ContentPresenter">
+                                <Setter Property="Background" Value="darkgreen"/>
+                                <Setter Property="BorderBrush" Value="darkgreen"/>
+                                <Setter Property="BorderThickness" Value="0 1 1 1"/>
+                                <Setter Property="CornerRadius" Value="0 5 5 0"/>
+                            </Style>
+                        </Button.Styles>
+                    </Button>
+                </StackPanel>
+                
+            </Grid>
+        </SplitView.Content>
+    </SplitView>
+</UserControl>
