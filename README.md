@@ -3,6 +3,9 @@
 
 A small .NET Core app built with [Avalonia](https://avaloniaui.net/) using [Rider IDE](https://www.jetbrains.com/rider/) app to keep track of your time and work!
 
+## Releases
+- Pre-release [V0.1](https://github.com/tararonkar/Ledger.App/releases)
+
 ### Documentation
 
 For more info please visit [wiki.](https://github.com/tararonkar/Ledger.App/wiki)
